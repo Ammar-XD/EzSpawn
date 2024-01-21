@@ -1,0 +1,30 @@
+# Do not edit config version
+file-version: 1
+
+# This changes automatically  when /setspawn is used.
+spawn:
+  world: world
+  x: 0.0
+  y: 0.0
+  z: 0.0
+  yaw: 0.0
+  pitch: 0.0
+
+# The prefix of the plugin
+prefix: "&f[EzSpawn]"
+
+
+# Optional configuration options
+teleportOnJoin: true
+
+message: "Teleported to spawn"
+
+combat-timer: 30
+
+clearInventory: true
+
+clearPotionEffects: true
+
+heal: true
+
+soundEffect: true

@@ -1,0 +1,37 @@
+name: EzSpawn
+version: 0.0.1
+main: dev.ammar.ezspawn.EzSpawn
+author: Ammar
+api-version: '1.17'
+commands:
+  setspawn:
+    description: Set spawn for the server
+    permission: op
+
+  spawn:
+    description: Teleport to spawn
+
+  ezspawn:
+    permission: default
+
+  warp:
+    description: Teleport to a warp
+    usage: /warp <warp_name>
+  setwarp:
+    description: Set a new warp
+    usage: /setwarp <warp_name>
+  warplist:
+    description: List your warps
+    usage: /warplist
+  delwarp:
+    description: Delete a warp
+    usage: /delwarp <warp_name>
+  warprename:
+    description: Rename a warp
+    usage: /warprename <old_name> <new_name>
+  warpUpdate:
+    description: Update a warp's location
+    usage: /warpUpdate <warp_name>
+  warpshare:
+    description: Share a warp with another player
+    usage: /warpshare <player_name> <warp_name>
