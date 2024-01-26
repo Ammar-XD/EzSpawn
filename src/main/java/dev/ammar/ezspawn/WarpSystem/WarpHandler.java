@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
+import static dev.ammar.ezspawn.EzSpawn.config;
 import static java.lang.Math.floor;
 
 public class WarpHandler implements CommandExecutor {
@@ -64,16 +65,16 @@ public class WarpHandler implements CommandExecutor {
                     for (Warp it : warplist) {
                         if (it.getName().equalsIgnoreCase(args[0]) && player.getName().equalsIgnoreCase(it.getOwner())) {
                             player.teleport(it.getLocation());
-                            player.sendMessage("You were teleported to warp " + ChatColor.AQUA + args[0]);
+                            player.sendMessage(config.getString("prefix") + " You were teleported to warp " + ChatColor.AQUA + args[0]);
                             return true;
                         }
                     }
-                    player.sendMessage(ChatColor.RED + "This warp doesn't exist!");
+                    player.sendMessage(coloredMessage(config.getString("prefix")) + ChatColor.RED + " This warp doesn't exist!");
                 }
                 return true;
             }
             else{
-                sender.sendMessage(ChatColor.RED + "You have to type warp name too!");
+                sender.sendMessage(coloredMessage(config.getString("prefix")) + ChatColor.RED + " You have to type warp name too!");
                 return true;
             }
         }
@@ -84,14 +85,14 @@ public class WarpHandler implements CommandExecutor {
 
                     for (Warp it : warplist) {
                         if (it.getName().equalsIgnoreCase(args[0]) && player.getName().equalsIgnoreCase(it.getOwner())) {
-                            player.sendMessage("You already have warp " + ChatColor.AQUA + args[0] + ChatColor.WHITE + "!");
+                            player.sendMessage(coloredMessage(config.getString("prefix")) + " You already have warp " + ChatColor.AQUA + args[0] + ChatColor.WHITE + "!");
                             return true;
                         }
                     }
 
                     warplist.add(new Warp(args[0], player.getName(), player.getLocation().getWorld().getName(), floor(player.getLocation().getX()) + 0.5, floor(player.getLocation().getY()), floor(player.getLocation().getZ()) + 0.5, 0 ,0));
 
-                    player.sendMessage("Warp " +
+                    player.sendMessage(coloredMessage(config.getString("prefix")) + " Warp " +
                             ChatColor.AQUA + args[0] +
                             ChatColor.WHITE + " set in location [" + (floor(player.getLocation().getX()) + 0.5) + ", " + floor(player.getLocation().getY()) +  ", " + (floor(player.getLocation().getZ()) + 0.5) +  "]");
 
@@ -99,7 +100,7 @@ public class WarpHandler implements CommandExecutor {
                 }
             }
             else{
-                sender.sendMessage(ChatColor.RED + "You have to type warp name too!");
+                sender.sendMessage(coloredMessage(config.getString("prefix")) + ChatColor.RED + " You have to type warp name too!");
             }
             return true;
         }
@@ -118,10 +119,10 @@ public class WarpHandler implements CommandExecutor {
                 }
             }
             if(!playerHasWarps){
-                player.sendMessage(ChatColor.RED + "You don't have any warp!");
+                player.sendMessage(coloredMessage(config.getString("prefix")) + ChatColor.RED + " You don't have any warp!");
             }
             else{
-                player.sendMessage(ChatColor.YELLOW + "List of your warps:");
+                player.sendMessage(coloredMessage(config.getString("prefix")) + ChatColor.YELLOW + " List of your warps:");
                 for (Warp it : warplist) {
                     if(player.getName().equalsIgnoreCase(it.getOwner())){
                         player.sendMessage(it.toString());
@@ -145,10 +146,10 @@ public class WarpHandler implements CommandExecutor {
                     }
                     if (toRem != null) {
                         warplist.remove(toRem);
-                        player.sendMessage("Warp " + ChatColor.AQUA + toRem.getName() + ChatColor.WHITE + " removed");
+                        player.sendMessage(coloredMessage(config.getString("prefix")) + " Warp " + ChatColor.AQUA + toRem.getName() + ChatColor.WHITE + " removed");
                     }
                     else{
-                        sender.sendMessage(ChatColor.RED + "There is no warp with this name!");
+                        sender.sendMessage(coloredMessage(config.getString("prefix")) + ChatColor.RED + " There is no warp with this name!");
                     }
                     writeWarpsToFile();
                 }
@@ -162,17 +163,17 @@ public class WarpHandler implements CommandExecutor {
 
         else if(cmd.getName().equalsIgnoreCase("warprename")){
             if(args.length < 2){
-                sender.sendMessage(ChatColor.RED + "You have to give 2 parameters!");
+                sender.sendMessage(coloredMessage(config.getString("prefix")) + ChatColor.RED + " You have to give 2 parameters!");
             }
             else{
                 for(Warp it : warplist){
                     if(it.getName().equalsIgnoreCase(args[0])){
                         it.setName(args[1]);
-                        sender.sendMessage("Changed name of warp " +ChatColor.AQUA + args[0] + ChatColor.WHITE + " to " + ChatColor.AQUA + args[1]);
+                        sender.sendMessage(coloredMessage(config.getString("prefix")) + " Changed name of warp " +ChatColor.AQUA + args[0] + ChatColor.WHITE + " to " + ChatColor.AQUA + args[1]);
                         return true;
                     }
                 }
-                sender.sendMessage(ChatColor.RED + "You don't have warp with this name!");
+                sender.sendMessage(coloredMessage(config.getString("prefix")) + ChatColor.RED + " You don't have warp with this name!");
                 return true;
             }
 
@@ -180,7 +181,7 @@ public class WarpHandler implements CommandExecutor {
 
         else if(cmd.getName().equalsIgnoreCase("warpUpdate")){
             if(args.length < 1){
-                sender.sendMessage(ChatColor.RED + "You have to give warp name!");
+                sender.sendMessage(config.getString("prefix") + ChatColor.RED + " You have to give warp name!");
                 return true;
             }
             else{
@@ -245,4 +246,9 @@ public class WarpHandler implements CommandExecutor {
             e.printStackTrace();
         }
     }
+
+    public String coloredMessage(String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
 }
