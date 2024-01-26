@@ -72,7 +72,9 @@ public class Warp {
                 .append("<").append(this.world).append("> [")
                 .append(this.x).append(", ")
                 .append(this.y).append(", ")
-                .append(this.z).append("]");
+                .append(this.z).append(", ")
+                .append(this.yaw).append(", ")
+                .append(this.pitch).append("]");
         return sb.toString();
     }
 }
